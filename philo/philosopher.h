@@ -6,7 +6,7 @@
 /*   By: yel-aziz <yel-aziz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 20:45:03 by yel-aziz          #+#    #+#             */
-/*   Updated: 2022/04/25 23:50:00 by yel-aziz         ###   ########.fr       */
+/*   Updated: 2022/04/26 04:52:16 by yel-aziz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct rot
    int  time_to_eat;
    int  time_to_sleep;
    int  number_of_times_each_philosopher_must_eat;
+   int  philos_full;
 }routine;
 
 typedef struct philosopher
@@ -34,13 +35,9 @@ typedef struct philosopher
     pthread_mutex_t *mtx;
     routine *rot;
     unsigned long             start_of;
+   unsigned long  n;
+   unsigned long  last_meal;
 }philosopher;
-
-typedef struct times
-{
-   int  second;
-   int  millseconde;
-}stemp;
 
 
 int               ft_atoi(const char *str);

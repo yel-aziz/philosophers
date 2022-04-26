@@ -6,7 +6,7 @@
 /*   By: yel-aziz <yel-aziz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 23:12:06 by yel-aziz          #+#    #+#             */
-/*   Updated: 2022/04/18 03:55:27 by yel-aziz         ###   ########.fr       */
+/*   Updated: 2022/04/26 04:17:47 by yel-aziz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,5 @@ void    ft_sharing(int *tab, routine *rt)
     rt->time_to_eat = tab[2];
     rt->time_to_sleep = tab[3];
     rt->number_of_times_each_philosopher_must_eat = tab[4];
+    rt->philos_full = 0;
 }
