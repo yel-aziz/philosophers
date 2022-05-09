@@ -6,7 +6,7 @@
 /*   By: yel-aziz <yel-aziz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 00:10:52 by yel-aziz          #+#    #+#             */
-/*   Updated: 2022/04/25 23:49:05 by yel-aziz         ###   ########.fr       */
+/*   Updated: 2022/05/09 19:56:37 by yel-aziz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,11 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	while (str[i] && str[i] >= '0' && str[i] <= '9')
-	{
-		res = res * 10 + (str[i] - '0');
-		i++;
-	}
+		res = res * 10 + (str[i++] - '0');
 	if (str[i] && (str[i] < '0' || str[i] > '9'))
-		exit(0);
-	
+	{
+		printf("EROOR");
+		return (0);
+	}
 	return (res * c);
 }
