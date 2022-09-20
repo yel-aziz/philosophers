@@ -6,7 +6,7 @@
 /*   By: yel-aziz <yel-aziz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 19:31:58 by yel-aziz          #+#    #+#             */
-/*   Updated: 2022/09/13 11:40:07 by yel-aziz         ###   ########.fr       */
+/*   Updated: 2022/09/20 18:06:28 by yel-aziz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,24 @@ void *ft_routine(void *p)
 {
     philo_id *philo;
     philo = (philo_id *)p;
+    if(philo->id % 2 == 0)
+        usleep(10);
+    philo->lastMeal = timeSeter();
     while(1)
     {
-    pthread_mutex_lock(&philo->mtx[philo->id - 1]);
-    printf("%d has take a fork\n",philo->id);
-    pthread_mutex_lock(&philo->mtx[philo->id % philo->life->number_of_philos]);
-    printf("%d has take a fork\n",philo->id);
-    printf("%d eating\n",philo->id);
-    usleep((philo->life->time_to_eat * 1000));
-    pthread_mutex_unlock(&philo->mtx[philo->id - 1]);
-    pthread_mutex_unlock(&philo->mtx[philo->id % philo->life->number_of_philos]);
-    printf("%d is sleeping\n",philo->id);
-    usleep(philo->life->time_to_sleep );
-    printf("%d is thinking\n",philo->id);
+        pthread_mutex_lock(&philo->mtx[philo->id - 1]);
+        printer(philo,"has take a fork",philo->id);
+        pthread_mutex_lock(&philo->mtx[philo->id % philo->life->number_of_philos]);
+        printer(philo,"has take a fork",philo->id);
+        printer(philo,"is eating",philo->id);
+        usleep((philo->life->time_to_eat * 1000));
+        philo->lastMeal = timeSeter();
+        philo->nEat++;
+        pthread_mutex_unlock(&philo->mtx[philo->id - 1]);
+        pthread_mutex_unlock(&philo->mtx[philo->id % philo->life->number_of_philos]);
+        printer(philo,"is sleeping",philo->id);
+        usleep(philo->life->time_to_sleep * 1000);
+        printer(philo,"is thinking",philo->id);
     }
    
     return(p);
@@ -40,16 +45,9 @@ int main(int ac, char **av)
     philo_id *philo_id;
     pthread_mutex_t *mtx;
     philo_life philo_life;
+    pthread_mutex_t pmtx;
     pthread_t th;
-    philo_life.number_of_philos = ft_atoi(av[1]);
-    philo_life.time_to_die = ft_atoi(av[2]);
-    philo_life.time_to_eat = ft_atoi(av[3]);;
-    philo_life.time_to_sleep = ft_atoi(av[4]);;
-    if(ac == 6)
-    philo_life.number_of_times_each_philosopher_must_eat = ft_atoi(av[5]);
-    else
-    philo_life.number_of_times_each_philosopher_must_eat = 0;
-    
+    init_all(&philo_life, av, ac);
     philo_id = malloc(philo_life.number_of_philos * sizeof(philo_life));
     if (!philo_id)
     return(0);
@@ -65,22 +63,24 @@ int main(int ac, char **av)
         pthread_mutex_init(&mtx[i],NULL);
         i++;
     }
+    pthread_mutex_init(&pmtx,NULL);
     i = 0;
     while (i < philo_life.number_of_philos)
     {
         philo_id[i].id = i + 1;
         philo_id[i].mtx = mtx;
         philo_id[i].life = &philo_life;
+        philo_id[i].nEat = 0;
+        philo_id[i].prtintMtx = &pmtx;
         i++;
     }
     i = 0;
    while (i < philo_life.number_of_philos)
     {   
         pthread_create(&th,NULL,&ft_routine, &philo_id[i++]);
+        usleep(500);
     }
     i = 0;
-    while (1)
-    {
-    }
- 
+    checker(philo_id,&philo_life,mtx,&pmtx);
+   
 }
