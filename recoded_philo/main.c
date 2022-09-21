@@ -6,7 +6,7 @@
 /*   By: yel-aziz <yel-aziz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 19:31:58 by yel-aziz          #+#    #+#             */
-/*   Updated: 2022/09/21 16:10:57 by yel-aziz         ###   ########.fr       */
+/*   Updated: 2022/09/21 17:19:29 by yel-aziz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,9 @@ int main(int ac, char **av)
    while (i < philo_life.number_of_philos)
     {   
         pthread_create(&th,NULL,&ft_routine, &philo_id[i++]);
-       usleep(500);
+       usleep(50);
     }
     i = 0;
-    checker(philo_id,&philo_life,mtx,&pmtx);
+    checker(philo_id,&philo_life,mtx);
    
 }
