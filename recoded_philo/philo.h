@@ -6,7 +6,7 @@
 /*   By: yel-aziz <yel-aziz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 19:32:10 by yel-aziz          #+#    #+#             */
-/*   Updated: 2022/09/20 18:06:54 by yel-aziz         ###   ########.fr       */
+/*   Updated: 2022/09/21 16:06:16 by yel-aziz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct philo_life
     int time_to_sleep;
     int number_of_philos;
     int number_of_times_each_philosopher_must_eat;
+    int philoFull;
 }philo_life;
 
 typedef struct philo_id
@@ -37,6 +38,7 @@ typedef struct philo_id
     philo_life *life;
     unsigned long lastMeal;
     int nEat;
+    unsigned long startOn;
 }philo_id;
 
 
@@ -46,5 +48,5 @@ unsigned long	timeSeter(void);
 void printer(philo_id *philo,char *str, int id);
 void init_all(philo_life *philo_life, char **av, int ac);
 int checker(philo_id *philo, philo_life *philo_life, pthread_mutex_t *mtx, pthread_mutex_t *pmtx);
-void destroy(pthread_mutex_t *mtx,pthread_mutex_t *pmtx);
+void destroy(pthread_mutex_t *mtx,pthread_mutex_t *pmtx, philo_id *philo);
 #endif

@@ -6,7 +6,7 @@
 /*   By: yel-aziz <yel-aziz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 22:02:14 by yel-aziz          #+#    #+#             */
-/*   Updated: 2022/09/20 16:43:44 by yel-aziz         ###   ########.fr       */
+/*   Updated: 2022/09/21 16:06:56 by yel-aziz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void printer(philo_id *philo,char *str, int id)
 {
 	pthread_mutex_lock(philo->prtintMtx);
-	printf("%lu %d %s\n",timeSeter(),id,str);
+	printf("%lu %d %s\n",timeSeter() - philo->startOn,id,str);
 	pthread_mutex_unlock(philo->prtintMtx);
 }
 unsigned long	timeSeter(void)

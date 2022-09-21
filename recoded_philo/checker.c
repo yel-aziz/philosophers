@@ -20,16 +20,16 @@ int checker(philo_id *philo, philo_life *philo_life, pthread_mutex_t *mtx, pthre
     {
         if (timeSeter() - (unsigned long)philo[i].lastMeal > (unsigned long)philo_life->time_to_die)
         {
-            printf("philo %d is dead\n",i);
-            destroy(mtx, pmtx);
+            printer(philo, "is dead", philo->id);
+            destroy(mtx, pmtx, philo);
             return(0);
         }
-        if (philo[i].nEat == philo_life->number_of_times_each_philosopher_must_eat)
+        if (philo->life->philoFull == philo_life->number_of_philos)
         {
-            destroy(mtx, pmtx);
+            destroy(mtx, pmtx, philo);
             return(0);
         }
         i = ((i + 1) % philo_life->number_of_philos);
-        usleep(500);   
+        usleep(50);
     }
 }

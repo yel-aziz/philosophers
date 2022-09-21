@@ -6,7 +6,7 @@
 /*   By: yel-aziz <yel-aziz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 19:31:58 by yel-aziz          #+#    #+#             */
-/*   Updated: 2022/09/20 18:06:28 by yel-aziz         ###   ########.fr       */
+/*   Updated: 2022/09/21 16:10:57 by yel-aziz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void *ft_routine(void *p)
         usleep((philo->life->time_to_eat * 1000));
         philo->lastMeal = timeSeter();
         philo->nEat++;
+        if(philo->nEat == philo->life->number_of_times_each_philosopher_must_eat)
+            philo->life->philoFull++;
         pthread_mutex_unlock(&philo->mtx[philo->id - 1]);
         pthread_mutex_unlock(&philo->mtx[philo->id % philo->life->number_of_philos]);
         printer(philo,"is sleeping",philo->id);
@@ -72,13 +74,14 @@ int main(int ac, char **av)
         philo_id[i].life = &philo_life;
         philo_id[i].nEat = 0;
         philo_id[i].prtintMtx = &pmtx;
+        philo_id[i].startOn = timeSeter();
         i++;
     }
     i = 0;
    while (i < philo_life.number_of_philos)
     {   
         pthread_create(&th,NULL,&ft_routine, &philo_id[i++]);
-        usleep(500);
+       usleep(500);
     }
     i = 0;
     checker(philo_id,&philo_life,mtx,&pmtx);
