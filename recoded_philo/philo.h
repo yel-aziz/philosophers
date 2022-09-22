@@ -6,7 +6,7 @@
 /*   By: yel-aziz <yel-aziz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 19:32:10 by yel-aziz          #+#    #+#             */
-/*   Updated: 2022/09/21 17:19:18 by yel-aziz         ###   ########.fr       */
+/*   Updated: 2022/09/21 17:43:19 by yel-aziz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,6 @@ int	ft_atoi(const char *str);
 unsigned long	timeSeter(void);
 void printer(philo_id *philo,char *str, int id);
 void init_all(philo_life *philo_life, char **av, int ac);
-int checker(philo_id *philo, philo_life *philo_life, pthread_mutex_t *pmtx);
-
+int checker(philo_id *philo, philo_life *philo_life, pthread_mutex_t *pmtx, pthread_mutex_t *mtx);
+void destroy(pthread_mutex_t *mtx, philo_id *philo, philo_life *life);
 #endif

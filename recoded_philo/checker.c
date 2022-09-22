@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-int checker(philo_id *philo, philo_life *philo_life, pthread_mutex_t *pmtx)
+int checker(philo_id *philo, philo_life *philo_life, pthread_mutex_t *pmtx, pthread_mutex_t *mtx)
 {
     int i;
     unsigned long time;
@@ -24,6 +24,7 @@ int checker(philo_id *philo, philo_life *philo_life, pthread_mutex_t *pmtx)
             pthread_mutex_lock(pmtx);
             time = (timeSeter() - philo[i].startOn);
             printf("%lu %d is dead",time, philo->id);
+            destroy(mtx, philo, philo_life);
             return(0);
         }
         if (philo->life->philoFull == philo_life->number_of_philos)

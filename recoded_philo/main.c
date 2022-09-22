@@ -6,7 +6,7 @@
 /*   By: yel-aziz <yel-aziz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 19:31:58 by yel-aziz          #+#    #+#             */
-/*   Updated: 2022/09/21 17:19:29 by yel-aziz         ###   ########.fr       */
+/*   Updated: 2022/09/21 17:44:14 by yel-aziz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void *ft_routine(void *p)
     philo_id *philo;
     philo = (philo_id *)p;
     if(philo->id % 2 == 0)
-        usleep(10);
+        usleep(20);
     philo->lastMeal = timeSeter();
     while(1)
     {
@@ -81,9 +81,9 @@ int main(int ac, char **av)
    while (i < philo_life.number_of_philos)
     {   
         pthread_create(&th,NULL,&ft_routine, &philo_id[i++]);
-       usleep(50);
+        usleep(500);
     }
     i = 0;
-    checker(philo_id,&philo_life,mtx);
+    checker(philo_id, &philo_life, &pmtx, mtx);
    
 }
