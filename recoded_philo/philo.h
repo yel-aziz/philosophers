@@ -13,12 +13,14 @@
 #ifndef PHILO_H
 #define PHILO_H
 
+
 #include <unistd.h>
 #include <stdio.h>
 #include <pthread.h>
 #include <stdlib.h>
 # include <sys/time.h>
 # include <unistd.h>
+
 
 typedef struct philo_life
 {
@@ -48,5 +50,5 @@ unsigned long	timeSeter(void);
 void printer(philo_id *philo,char *str, int id);
 void init_all(philo_life *philo_life, char **av, int ac);
 int checker(philo_id *philo, philo_life *philo_life, pthread_mutex_t *pmtx, pthread_mutex_t *mtx);
-void destroy(pthread_mutex_t *mtx, philo_id *philo, philo_life *life);
+void destroy(pthread_mutex_t *mtx, philo_id *philo);
 #endif

@@ -12,16 +12,14 @@
 
 #include "philo.h"
 
-void destroy(pthread_mutex_t *mtx, philo_id *philo, philo_life *life)
+void destroy(pthread_mutex_t *mtx, philo_id *philo)
 {
     int i;
     i = 0;
 
-    // while (i <= life->number_of_philos)
-    // {
-        //pthread_mutex_destroy(&mtx[i++]);
-    //}
-    life->number_of_philos = 0;
+    while (i < philo->life->number_of_philos)
+        pthread_mutex_destroy(&mtx[i++]);
+
     free(mtx);
     free(philo);
 }

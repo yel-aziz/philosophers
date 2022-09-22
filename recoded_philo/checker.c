@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker->c                                          :+:      :+:    :+:   */
+/*   checker->c                                          :+:      :+:    :+:  */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yel-aziz <yel-aziz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -19,19 +19,20 @@ int checker(philo_id *philo, philo_life *philo_life, pthread_mutex_t *pmtx, pthr
     i = 0;
      while (1)
     {
+        if (philo->life->philoFull == philo_life->number_of_philos)
+        {
+            destroy(mtx, philo);
+            return(0);
+        }
         if (timeSeter() - (unsigned long)philo[i].lastMeal > (unsigned long)philo_life->time_to_die)
         {
             pthread_mutex_lock(pmtx);
             time = (timeSeter() - philo[i].startOn);
             printf("%lu %d is dead",time, philo->id);
-            destroy(mtx, philo, philo_life);
-            return(0);
-        }
-        if (philo->life->philoFull == philo_life->number_of_philos)
-        {
+            destroy(mtx, philo);
             return(0);
         }
         i = ((i + 1) % philo_life->number_of_philos);
-       usleep(200);
+       usleep(500);
     }
 }

@@ -17,7 +17,7 @@ void *ft_routine(void *p)
     philo_id *philo;
     philo = (philo_id *)p;
     if(philo->id % 2 == 0)
-        usleep(20);
+        usleep(200);
     philo->lastMeal = timeSeter();
     while(1)
     {
@@ -37,7 +37,6 @@ void *ft_routine(void *p)
         usleep(philo->life->time_to_sleep * 1000);
         printer(philo,"is thinking",philo->id);
     }
-   
     return(p);
 }
 
