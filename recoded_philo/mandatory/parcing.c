@@ -6,7 +6,7 @@
 /*   By: yel-aziz <yel-aziz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 14:55:02 by yel-aziz          #+#    #+#             */
-/*   Updated: 2022/09/27 23:54:33 by yel-aziz         ###   ########.fr       */
+/*   Updated: 2022/09/28 00:52:35 by yel-aziz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,6 @@ int	parcing(char **av, int ac, t_philo_life *life)
 		tab[k++] = c;
 	}
 	ft_initi_struct(life, tab);
+	free (tab);
 	return (0);
 }

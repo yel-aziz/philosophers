@@ -6,7 +6,7 @@
 /*   By: yel-aziz <yel-aziz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 16:57:14 by yel-aziz          #+#    #+#             */
-/*   Updated: 2022/09/28 00:01:57 by yel-aziz         ###   ########.fr       */
+/*   Updated: 2022/09/28 00:54:32 by yel-aziz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	checker(t_philo_id *philo, t_philo_life *philo_life)
 		if (philo->life->philofull == philo_life->number_of_philos)
 		{
 			pthread_mutex_lock(philo->prtintmtx);
+			destroy(philo->mtx,	philo);
 			return (0);
 		}
 		else if (timeseter() - philo[i].lastmeal
@@ -31,6 +32,7 @@ int	checker(t_philo_id *philo, t_philo_life *philo_life)
 			time = (timeseter() - philo[i].starton);
 			pthread_mutex_lock(philo->prtintmtx);
 			printf("%lu %d is dead", time, philo->id);
+			destroy(philo->mtx,	philo);
 			return (0);
 		}
 		i = ((i + 1) % philo->life->number_of_philos);
