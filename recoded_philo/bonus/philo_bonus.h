@@ -6,7 +6,7 @@
 /*   By: yel-aziz <yel-aziz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 17:01:19 by yel-aziz          #+#    #+#             */
-/*   Updated: 2022/09/26 15:13:21 by yel-aziz         ###   ########.fr       */
+/*   Updated: 2022/09/26 22:21:44 by yel-aziz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ typedef struct s_philo
     int philoID;
     unsigned long long lastmeal;
     unsigned long long  starOf;
+    int eacheat;
+    int neat;
 }   t_philos;
 
 int init_bonus(char **av, int ac, t_routine *rot);

@@ -6,7 +6,7 @@
 /*   By: yel-aziz <yel-aziz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 16:58:35 by yel-aziz          #+#    #+#             */
-/*   Updated: 2022/09/26 15:03:47 by yel-aziz         ###   ########.fr       */
+/*   Updated: 2022/09/27 16:38:26 by yel-aziz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,29 +55,19 @@ int init_bonus(char **av, int ac, t_routine *rot)
 
 void *checkdeath(void *p)
 {
-    int i;
     t_philos *pp;
     pp = (t_philos*)p;
     
-    i = 0;
-    // while(1)
-    // {
-    //     printf("philo id %d time to die %llu current time = %llu\n",pp->philoID, (unsigned long long )pp->life.timeToDie,(timeSeter()- pp->lastmeal));
-    //     usleep(1000);
-    // }
+
    while (1)
     {
-        if(timeSeter() - (pp->lastmeal ) > (unsigned long long)pp->life.timeToDie)
+        if(timeSeter() - pp->lastmeal > (unsigned long long)pp->life.timeToDie)
         {
-          sem_wait(pp->printer);
-           printf("time %llu ",timeSeter()-pp->starOf);
-            printf(" %d neeed to dead\n",pp->philoID);
-            i = 1;
-            while(i < pp->life.numbPhilo)
-                kill(pp->pids[i++],SIGINT);
+            sem_wait(pp->printer);
+            printf("%d neeed to dead",pp->philoID);
             exit(1);
         }
-        // usleep(500);
+        usleep(500);
     }
     return 0;
 }

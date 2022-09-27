@@ -6,50 +6,58 @@
 /*   By: yel-aziz <yel-aziz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 14:55:02 by yel-aziz          #+#    #+#             */
-/*   Updated: 2022/09/23 17:40:43 by yel-aziz         ###   ########.fr       */
+/*   Updated: 2022/09/27 23:54:33 by yel-aziz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int parcing(char **av, int ac,philo_life *life)
+int	*check(char **av)
 {
-    int i;
-    int k;
-    int c;
-    int *tab;
+	int	i;
+	int	*tab;
 
-    i = 1;
-    if (ac == 1)
+	i = 1;
+	while (av[i])
+	i++;
+	tab = malloc(sizeof(int) * (i - 1));
+	if (!tab)
+		return (0);
+	return (tab);
+}
+
+void	ft_initi_struct(t_philo_life *life, int *tab)
+{
+	life->number_of_philos = tab[0];
+	life->time_to_die = tab[1];
+	life->time_to_eat = tab[2];
+	life->time_to_sleep = tab[3];
+	life->number_of_times_each_philosopher_must_eat = tab[4];
+	life->philofull = 0;
+}
+
+int	parcing(char **av, int ac, t_philo_life *life)
+{
+	int	i;
+	int	k;
+	int	c;
+	int	*tab;
+
+	if (ac == 1 || ac < 5 || ac > 6)
 	{
 		printf("please enter the right parameters");
-		return 1;
+		return (1);
 	}
-	if (ac < 5 || ac > 6)
+	tab = check(av);
+	k = 0;
+	i = 1;
+	while (av[i])
 	{
-		printf("EROOR");
-		return 1;
+		c = ft_atoi(av[i++]);
+		if (c <= 0)
+			return (1);
+		tab[k++] = c;
 	}
-    while (av[i])
-        i++;
-    tab = malloc(sizeof(int) * (i - 1));
-    
-    i = 1;
-    k = 0;
-    while (av[i])
-    {
-        c = ft_atoi(av[i++]);
-        if(c <= 0)
-            return 1;
-        tab[k++] = c;
-    }
-    
-    life->number_of_philos = tab[0];
-    life->time_to_die = tab[1];
-    life->time_to_eat = tab[2];
-    life->time_to_sleep = tab[3];
-    life->number_of_times_each_philosopher_must_eat = tab[4];
-    life->philoFull = 0;
-    return (0);
-
+	ft_initi_struct(life, tab);
+	return (0);
 }

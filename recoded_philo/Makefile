@@ -16,7 +16,8 @@ all : $(NAME)
 bonus : $(NAME_BONUS)
 
 $(NAME) : $(SRCS) $(OBJS) mandatory/philo.h
-	cc -pthread -Wall -Wextra -Werror $(SRCS) -o $(NAME)
+	@echo "\033[92mrunning...\033[0m"
+	@cc -pthread -Wall -Wextra -Werror $(SRCS) -o $(NAME)
 
 $(NAME_BONUS) : $(SRCS_BONUS) $(OBJS_BONUS) bonus/philo_bonus.h
 	cc -pthread -Wall -Wextra -Werror $(SRCS_BONUS) -o $(NAME_BONUS)

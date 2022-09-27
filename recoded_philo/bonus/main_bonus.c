@@ -6,7 +6,7 @@
 /*   By: yel-aziz <yel-aziz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 16:57:59 by yel-aziz          #+#    #+#             */
-/*   Updated: 2022/09/26 15:10:32 by yel-aziz         ###   ########.fr       */
+/*   Updated: 2022/09/27 16:38:12 by yel-aziz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,28 +31,30 @@ unsigned long long	timeSeter(void)
 void ft_routine(t_philos *pp)
 {
     pthread_t th;
-    //pp->lastmeal = 0;
-
-    //usleep(500);
-
-    // pp->lastmeal = timeSeter() - pp->starOf;
-    pthread_create(&th, NULL,&checkdeath,pp);
+    
+    pp->lastmeal = timeSeter();
+    pp->eacheat = 0;
+    pthread_create(&th, NULL, &checkdeath, pp);
     while (1)
     {
         sem_wait(pp->forks);
         ft_printer(pp,"has take a fork");
         sem_wait(pp->forks);
         ft_printer(pp,"has take a fork");
-        ft_printer(pp, "is eating");
-        
         pp->lastmeal = timeSeter();
+        pp->neat++;
         usleep(1000 * pp->life.timeToEat);
+        ft_printer(pp, "is eating");
+        sem_post(pp->forks);
+       sem_post(pp->forks);
+        if(pp->neat == pp->life.eachPhiloEat)
+            exit(2);
         ft_printer(pp, "is sleeping");
-        sem_post(pp->forks);
-        sem_post(pp->forks);
         usleep(1000 * pp->life.timeToSleep);
-        // usleep(100);
+        ft_printer(pp, "is thinking");
+    usleep(500);
     }
+   
     return;
 }
 
@@ -70,22 +72,21 @@ int main(int ac, char **av)
     philo_id.forks = sem_open("forks", O_CREAT, 0700, rot.numbPhilo);
     philo_id.printer = sem_open("printer",  O_CREAT, 0700,1);
     philo_id.pids = malloc(sizeof(pid_t) * rot.numbPhilo);
-    //if ()
      i = 0;
     while (i < rot.numbPhilo)
-{
+    {
         philo_id.pids[i] = fork();
         if (philo_id.pids[i] == -1)
             exit(1);
-        if (philo_id.pids[i] == 0)
+       else if (philo_id.pids[i] == 0)
         {
-            philo_id.lastmeal = timeSeter();
             philo_id.philoID = i + 1;
             philo_id.starOf = timeSeter();
             philo_id.life = rot;
+            philo_id.neat=0;
             ft_routine(&philo_id);
+            exit(0);
         }
-        usleep(200);
         i++;
     }
 
@@ -94,8 +95,10 @@ int main(int ac, char **av)
     while (i < rot.numbPhilo)
     {
         waitpid(philo_id.pids[i++], &exit_status, 0);
-        if (exit_status == 256){
-            printf("someone died\n");
+        if (WEXITSTATUS(exit_status) == 1){
+             i = 0;
+            while(i < philo_id.life.numbPhilo)
+                kill(philo_id.pids[i++],SIGINT);
             exit (0);
         }
     }
