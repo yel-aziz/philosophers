@@ -1,5 +1,0 @@
-make --dry-run --always-make --keep-going --print-directory
-make: Entering directory `/Users/yel-aziz/Desktop/recoded_philo'
-cc -pthread -Wall -Wextra -Werror mandatory/main.c mandatory/ft_atoi.c mandatory/timeSeter.c  mandatory/checker.c mandatory/destroy.c mandatory/parcing.c -o PHILO
-make: Leaving directory `/Users/yel-aziz/Desktop/recoded_philo'
- 
